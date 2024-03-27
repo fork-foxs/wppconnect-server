@@ -15,5 +15,6 @@
  */
 import config from './config';
 import { initServer } from './index';
+// console.log(process.env.EMAIL);
 
 initServer(config);
