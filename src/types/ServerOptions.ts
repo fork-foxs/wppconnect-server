@@ -3,8 +3,9 @@ import { BucketLocationConstraint } from '@aws-sdk/client-s3';
 export interface ServerOptions {
   BOT_URL: string;
   PASSWORD: any;
-  EMAIL: any;
-  BOT_ID: any;
+  EMAIL: string;
+  BOT_ID: string;
+
   secretKey: string;
   host: string;
   port: number;

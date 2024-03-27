@@ -232,25 +232,22 @@ export default class CreateSessionUtil {
       callWebHook(client, req, 'onmessage', message);
       console.log('this message is from  ' + message.from + '  story');
       console.log('this message is   ' + message.body);
-      if (message.from === '967770545691@c.us') {
-        try {
-          // await client.sendText(message.from, 'hello nosaaai');
-          //هنا بداية الكود حق عبدالملك
-          console.log(req.serverOptions.EMAIL);
-          const jwtToken = await refreshToken();
-          console.log('Text message sent successfully');
+      try {
+        // await client.sendText(message.from, 'hello nosaaai');
+        console.log(req.serverOptions.EMAIL);
+        const jwtToken = await refreshToken();
+        console.log('Text message sent successfully');
 
-          const response = await callBotpressApi(message, jwtToken);
+        const response = await callBotpressApi(message, jwtToken);
 
-          if (response && response.status === 200) {
-            await processAndSendResponses(client, message, response);
-          }
-
-          //هنا نهاية الكود حق عبدالملك
-        } catch (error) {
-          console.error('Error when sending text: ', error);
+        if (response && response.status === 200) {
+          await processAndSendResponses(client, message, response);
         }
+
+      } catch (error) {
+        console.error('Error when sending text: ', error);
       }
+
       if (message.type === 'location')
         client.onLiveLocation(message.sender.id, (location) => {
           callWebHook(client, req, 'location', location);
