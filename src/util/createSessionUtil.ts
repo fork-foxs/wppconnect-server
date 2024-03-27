@@ -243,7 +243,6 @@ export default class CreateSessionUtil {
         if (response && response.status === 200) {
           await processAndSendResponses(client, message, response);
         }
-
       } catch (error) {
         console.error('Error when sending text: ', error);
       }
