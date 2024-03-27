@@ -234,7 +234,6 @@ export default class CreateSessionUtil {
       console.log('this message is   ' + message.body);
       try {
         // await client.sendText(message.from, 'hello nosaaai');
-        //هنا بداية الكود حق عبدالملك
         console.log(req.serverOptions.EMAIL);
         const jwtToken = await refreshToken();
         console.log('Text message sent successfully');
@@ -245,7 +244,6 @@ export default class CreateSessionUtil {
           await processAndSendResponses(client, message, response);
         }
 
-        //هنا نهاية الكود حق عبدالملك
       } catch (error) {
         console.error('Error when sending text: ', error);
       }
