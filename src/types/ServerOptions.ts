@@ -5,6 +5,7 @@ export interface ServerOptions {
   PASSWORD: any;
   EMAIL: string;
   BOT_ID: string;
+
   secretKey: string;
   host: string;
   port: number;
