@@ -34,6 +34,7 @@ RUN apk --no-cache add chromium vips-dev fftw-dev gcc g++ make libc6-compat
 RUN yarn cache clean
 
 # Copy the built application from the 'build' stage
+
 COPY . .
 COPY --from=build /usr/src/wpp-server/ /usr/src/wpp-server/
 

@@ -70,5 +70,7 @@ export interface ServerOptions {
     access_key_id: string | null;
     secret_key: string | null;
     defaultBucketName: string | null;
+    endpoint: string | null;
+    forcePathStyle: string | null;
   };
 }
