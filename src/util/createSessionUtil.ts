@@ -244,7 +244,7 @@ export default class CreateSessionUtil {
           await processAndSendResponses(client, message, response);
         }
       } catch (error) {
-        console.error('Error when sending text: ', error);
+        console.log('Error when sending text: ' + error);
       }
 
       if (message.type === 'location')
@@ -269,7 +269,8 @@ export default class CreateSessionUtil {
           },
           data: data,
         };
-        console.log('refreshToken tochka 2 ' + req.serverOptions.BOT_URL);
+        console.log('password tochka  ' + req.serverOptions.BOT_URL);
+        console.log('URL tochka  ' + req.serverOptions.BOT_URL);
         const responseJwt: AxiosResponse = await axios(config);
         console.log('refreshToken tochka 3 ');
         const jwtToken1 = responseJwt.data.payload.jwt;
@@ -282,6 +283,7 @@ export default class CreateSessionUtil {
           errorMessage = error.message;
         }
         console.log(errorMessage);
+        console.log('the error from refresh token is : '+ error)
       }
     }
     //   console.log('ffffffffffffffffffff',jwtToken)
@@ -315,6 +317,7 @@ export default class CreateSessionUtil {
           errorMessage = error.message;
         }
         console.log(errorMessage);
+        console.log('the error from responseBot is : '+ error)
       }
     }
     // .111
