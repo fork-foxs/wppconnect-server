@@ -1,7 +1,7 @@
 export default {
   secretKey: 'THISISMYSECURETOKEN',
   EMAIL: 'admin@admin.com',
-  PASSWORD: '',
+  PASSWORD: 'BotFin@2023',
   BOT_URL: 'https://bot.fintechsys.net',
   BOT_ID: 'jawallibot',
   host: 'http://localhost',
