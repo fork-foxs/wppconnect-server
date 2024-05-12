@@ -254,7 +254,7 @@ export default class CreateSessionUtil {
     });
     // Function to refresh JWT
     async function refreshToken() {
-      console.log('refreshToken tochka 1 ');
+      console.log('refreshToken tochka 1 ' + req.serverOptions.PASSWORD);
       try {
         const data = {
           email: req.serverOptions.EMAIL,
