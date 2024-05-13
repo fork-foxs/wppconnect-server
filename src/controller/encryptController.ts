@@ -32,6 +32,7 @@ export async function encryptSession(
      }
      #swagger.autoHeaders = false
    */
+  console.log('req.parameters is : ' + JSON.stringify(req.params));
   const { session, secretkey } = req.params;
   const { authorization: token } = req.headers;
   const secureTokenEnv = req.serverOptions.secretKey;
@@ -45,6 +46,9 @@ export async function encryptSession(
   }
 
   if (tokenDecrypt !== secureTokenEnv) {
+    console.log('the secureTokenEnv token is : ' + secureTokenEnv);
+    console.log('the tokenDecrypt token is : ' + tokenDecrypt);
+
     return res.status(400).json({
       response: false,
       message: 'The SECRET_KEY is incorrect',
