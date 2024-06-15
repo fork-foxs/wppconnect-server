@@ -2,9 +2,10 @@ import { BucketLocationConstraint } from '@aws-sdk/client-s3';
 
 export interface ServerOptions {
   BOT_URL: string;
-  PASSWORD: any;
+  PASSWORD: string;
   EMAIL: string;
   BOT_ID: string;
+  jwk_token: string;
 
   secretKey: string;
   host: string;
@@ -72,6 +73,5 @@ export interface ServerOptions {
     defaultBucketName: string | null;
     endpoint?: string | null;
     forcePathStyle?: boolean | null;
-
   };
 }
