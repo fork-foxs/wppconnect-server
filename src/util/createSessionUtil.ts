@@ -17,7 +17,7 @@
 
 import { create, SocketState } from '@wppconnect-team/wppconnect';
 import axios, { AxiosResponse } from 'axios';
-import { Request } from 'express';
+import { Request, response } from 'express';
 
 // import config from '../config';
 import { download } from '../controller/sessionController';
@@ -235,13 +235,14 @@ export default class CreateSessionUtil {
       try {
         // await client.sendText(message.from, 'hello nosaaai');
         console.log(req.serverOptions.EMAIL);
-        const jwtToken = await refreshToken();
-        console.log('Text message sent successfully');
-
+        const jwtToken = req.serverOptions.jwk_token;
+        console.log('refreshtoken is :' + jwtToken);
         const response = await callBotpressApi(message, jwtToken);
 
         if (response && response.status === 200) {
           await processAndSendResponses(client, message, response);
+        } else {
+          refreshToken();
         }
       } catch (error) {
         console.error('Error when sending text: ', error);
@@ -254,38 +255,55 @@ export default class CreateSessionUtil {
     });
     // Function to refresh JWT
     async function refreshToken() {
-      console.log('refreshToken tochka 1 ' + req.serverOptions.PASSWORD);
-      try {
-        const data = {
-          email: req.serverOptions.EMAIL,
-          password: req.serverOptions.PASSWORD,
-        };
-
-        const config = {
-          method: 'post',
-          url: req.serverOptions.BOT_URL + '/api/v1/auth/login/basic/default',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          data: data,
-        };
-        console.log('refreshToken tochka 2 ' + req.serverOptions.BOT_URL);
-        const responseJwt: AxiosResponse = await axios(config);
-        console.log('refreshToken tochka 3 ');
-        const jwtToken1 = responseJwt.data.payload.jwt;
-        console.log('refreshToken tochka 3 ');
-        console.log('starting refreshToken function');
-        return jwtToken1;
-      } catch (error) {
-        let errorMessage = 'Failed to do something exceptional';
-        if (error instanceof Error) {
-          errorMessage = error.message;
-        }
-        console.log(errorMessage);
-      }
+      const loginData = {
+        email: req.serverOptions.EMAIL,
+        password: req.serverOptions.PASSWORD,
+      };
+      const loginUrl =
+        req.serverOptions.BOT_URL + '/api/v1/auth/login/basic/default';
+      console.log(
+        'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu' + JSON.stringify(loginData)
+      );
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      setTimeout(() => {
+        axios
+          .post(loginUrl, loginData, { headers })
+          .then((response) => {
+            console.log(
+              'Login ddddddddddddddddddddddddddddddddddd successful:',
+              response.data
+            );
+            const jwtToken1 = response.data.payload.jwt;
+            req.serverOptions.jwk_token = jwtToken1;
+            return jwtToken1;
+          })
+          .catch((error) => {
+            console.error(
+              'Error eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelogging in:',
+              error.response.data
+            );
+            return { status: false, message: error.message };
+          });
+      }, 2000);
+      // try {
+      //   console.log('dddddddddddddddddddddddddddddddddddddddddddddddddd');
+      //   const response = await axios.post(loginUrl, loginData, { headers });
+      //   // const responseJwt: AxiosResponse = await axios(config);
+      //   console.log('refreshToken the response status is :' + response.status);
+      //   const jwtToken1 = response.data.payload.jwt;
+      //   return jwtToken1;
+      // } catch (error) {
+      //   if (error.response) {
+      //     console.log('Error logging in:', error.response.data);
+      //     return error.response.data;
+      //   } else {
+      //     console.log('Unexpected error:', error.message);
+      //     return error.message;
+      //   }
+      // }
     }
-    //   console.log('ffffffffffffffffffff',jwtToken)
-    //   setInterval(refreshToken, 30000); // 3600000 milliseconds = 1 hour
 
     // 111 defining fuction to send message to botpress and get the response as respnseBot
     async function callBotpressApi(msg, jwtToken) {
