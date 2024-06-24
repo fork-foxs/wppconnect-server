@@ -16,8 +16,8 @@
 // import 'dotenv-import';
 
 import { create, SocketState } from '@wppconnect-team/wppconnect';
-import axios, { AxiosResponse } from 'axios';
-import { Request, response } from 'express';
+import axios from 'axios';
+import { Request } from 'express';
 
 // import config from '../config';
 import { download } from '../controller/sessionController';
@@ -227,7 +227,7 @@ export default class CreateSessionUtil {
   }
 
   async listenMessages(client: WhatsAppServer, req: Request) {
-    client.onMessage(async (message: any) => {
+    await client.onMessage(async (message: any) => {
       eventEmitter.emit(`mensagem-${client.session}`, client, message);
       callWebHook(client, req, 'onmessage', message);
       console.log('this message is from  ' + message.from + '  story');
