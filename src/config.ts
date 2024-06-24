@@ -6,6 +6,7 @@ export default {
   PASSWORD: '',
   BOT_URL: 'https://bot.fintechsys.net',
   BOT_ID: 'jawallibot',
+  jwk_token: 'abddfsdjflskdfjdsklfjkldjf',
   host: 'http://localhost',
   port: '21465',
   deviceName: 'WppConnect',
