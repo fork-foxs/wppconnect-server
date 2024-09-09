@@ -2,8 +2,7 @@ version: "3"
 
 services:
   wppconnect:
-    build:
-      context: .
+    image: wppconnect-server/wppconnect:latest
     volumes:
       - ./config.ts:/usr/src/wpp-server/config.ts
       - ./wppconnect_tokens:/usr/src/wpp-server/tokens
