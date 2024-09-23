@@ -310,7 +310,7 @@ export default class CreateSessionUtil {
       try {
         const phone = msg.from;
         const phoneid = phone.replace('967', '').replace('@c.us', '');
-        const botId = 'jawallibot';
+        const botId = req.serverOptions.BOT_ID;
         const userId = phoneid;
         const include = 'nlu,state,suggestions,decision';
         //   const token = token;
@@ -325,6 +325,7 @@ export default class CreateSessionUtil {
           type: 'text',
           text: msg.body,
         };
+        console.log('the botpress url is : ' + url);
         const respnseBot = await axios.post(url, data, { headers });
         return respnseBot; // Return the API response data
       } catch (error) {
