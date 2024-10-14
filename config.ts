@@ -1,9 +1,10 @@
 export default {
   secretKey: 'THISISMYSECURETOKEN',
   EMAIL: 'admin@admin.com',
-  PASSWORD: '',
-  BOT_URL: 'https://bot.fintechsys.net',
+  PASSWORD: 'AdminFin@2024',
+  BOT_URL: 'http://192.168.88.30',
   BOT_ID: 'jawallibot',
+  jwk_token: 'abddfsdjflskdfjdsklfjkldjf',
   host: 'http://localhost',
   port: '21465',
   deviceName: 'WppConnect',

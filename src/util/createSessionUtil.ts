@@ -234,18 +234,20 @@ export default class CreateSessionUtil {
       console.log('this message is   ' + message.body);
       try {
         // await client.sendText(message.from, 'hello nosaaai');
-        console.log(req.serverOptions.EMAIL);
+        console.log('req.serverOptions.EMAIL : ', req.serverOptions.EMAIL);
         const jwtToken = req.serverOptions.jwk_token;
-        console.log('refreshtoken is :' + jwtToken);
+        console.log('refreshtoken is : ' + jwtToken);
         const response = await callBotpressApi(message, jwtToken);
 
         if (response && response.status === 200) {
           await processAndSendResponses(client, message, response);
         } else {
+          console.log('the jwt token is expaired  : ');
+
           refreshToken();
         }
       } catch (error) {
-        console.error('Error when sending text: ', error);
+        console.error('\n\n Error when sending text is : ', error);
       }
 
       if (message.type === 'location')
@@ -321,19 +323,24 @@ export default class CreateSessionUtil {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${jwtToken}`,
         };
+        console.log('the botpress url is : ' + url);
         const data = {
           type: 'text',
           text: msg.body,
         };
         console.log('the botpress url is : ' + url);
         const respnseBot = await axios.post(url, data, { headers });
+        console.log('the responseBot is : ' + respnseBot);
         return respnseBot; // Return the API response data
       } catch (error) {
         let errorMessage = 'Failed to do something exceptional';
         if (error instanceof Error) {
           errorMessage = error.message;
         }
-        console.log(errorMessage);
+        console.log(
+          'the error in function calling callBotpressApi: ',
+          errorMessage
+        );
       }
     }
     // .111
