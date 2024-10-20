@@ -2,7 +2,7 @@ version: "3"
 
 services:
   wppconnect:
-    image: harbor.fintechsys.net/wppconnect-server/wppconnect:latest
+    image: harbor.fintechsys.net/wppconnect-server/wppconnect:2.7.0
     volumes:
       - ./config.ts:/usr/src/wpp-server/config.ts
       - ./wppconnect_tokens:/usr/src/wpp-server/tokens
