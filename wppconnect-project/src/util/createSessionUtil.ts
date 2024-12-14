@@ -375,11 +375,11 @@ export default class CreateSessionUtil {
 
           try {
             await client.sendListMessage(message.from, {
-              buttonText: 'Click here to show the list',
+              buttonText: 'انقر هنا 👆 لعرض قائمة الخيارات ',
               description: description,
               sections: [
                 {
-                  title: 'Available operations',
+                  title: 'العمليات المتاحة',
                   rows: rows,
                 },
               ],
