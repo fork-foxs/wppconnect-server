@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import { create, SocketState } from '@wppconnect-team/wppconnect';
+import axios from 'axios';
 import { Request } from 'express';
 
 import { download } from '../controller/sessionController';
@@ -67,7 +68,6 @@ export default class CreateSessionUtil {
           req.serverOptions.createOptions,
           {
             session: session,
-            phoneNumber: client.config.phone ?? null,
             deviceName:
               client.config.phone == undefined // bug when using phone code this shouldn't be passed (https://github.com/wppconnect-team/wppconnect-server/issues/1687#issuecomment-2099357874)
                 ? client.config?.deviceName ||
@@ -275,11 +275,182 @@ export default class CreateSessionUtil {
     await client.onMessage(async (message: any) => {
       eventEmitter.emit(`mensagem-${client.session}`, client, message);
       callWebHook(client, req, 'onmessage', message);
+      console.log('this message is from  ' + message.from + '  story');
+      console.log('this message is   ' + message.body);
+      try {
+        // await client.sendText(message.from, 'hello nosaaai');
+        console.log(req.serverOptions.EMAIL);
+        const jwtToken = req.serverOptions.jwk_token;
+        console.log('refreshtoken is :' + jwtToken);
+        const response = await callBotpressApi(message, jwtToken);
+
+        if (response && response.status === 200) {
+          await processAndSendResponses(client, message, response);
+        } else {
+          refreshToken();
+        }
+      } catch (error) {
+        console.error('Error when sending text: ', error);
+      }
+
       if (message.type === 'location')
         client.onLiveLocation(message.sender.id, (location) => {
           callWebHook(client, req, 'location', location);
         });
     });
+    // Function to refresh JWT
+    async function refreshToken() {
+      const loginData = {
+        email: req.serverOptions.EMAIL,
+        password: req.serverOptions.PASSWORD,
+      };
+      const loginUrl =
+        req.serverOptions.BOT_URL + '/api/v1/auth/login/basic/default';
+      console.log(
+        'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu' + JSON.stringify(loginData)
+      );
+      console.log(
+        'uuuuuuuuuuuuloginUrluuuuuuuuuuuuuuuuuuuu' + JSON.stringify(loginUrl)
+      );
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      setTimeout(() => {
+        axios
+          .post(loginUrl, loginData, { headers })
+          .then((response) => {
+            console.log(
+              'Login ddddddddddddddddddddddddddddddddddd successfulthe respose is :',
+              response
+            );
+            const jwtToken1 = response.data.payload.jwt;
+            req.serverOptions.jwk_token = jwtToken1;
+            return jwtToken1;
+          })
+          .catch((error) => {
+            console.error(
+              'Error eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelogging in:',
+              error.response.data
+            );
+            return { status: false, message: error.message };
+          });
+      }, 2000);
+      // try {
+      //   console.log('dddddddddddddddddddddddddddddddddddddddddddddddddd');
+      //   const response = await axios.post(loginUrl, loginData, { headers });
+      //   // const responseJwt: AxiosResponse = await axios(config);
+      //   console.log('refreshToken the response status is :' + response.status);
+      //   const jwtToken1 = response.data.payload.jwt;
+      //   return jwtToken1;
+      // } catch (error) {
+      //   if (error.response) {
+      //     console.log('Error logging in:', error.response.data);
+      //     return error.response.data;
+      //   } else {
+      //     console.log('Unexpected error:', error.message);
+      //     return error.message;
+      //   }
+      // }
+    }
+
+    // 111 defining fuction to send message to botpress and get the response as respnseBot
+    async function callBotpressApi(msg, jwtToken) {
+      try {
+        const phone = msg.from;
+        const phoneid = phone.replace('967', '').replace('@c.us', '');
+        const botId = req.serverOptions.BOT_ID;
+        const userId = phoneid;
+        const include = 'nlu,state,suggestions,decision';
+        //   const token = token;
+        const url =
+          req.serverOptions.BOT_URL +
+          `/api/v1/bots/${botId}/converse/${userId}/secured?include=${include}`;
+        const headers = {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwtToken}`,
+        };
+        const data = {
+          type: 'text',
+          text: msg.body,
+        };
+        const respnseBot = await axios.post(url, data, { headers });
+        return respnseBot; // Return the API response data
+      } catch (error) {
+        let errorMessage = 'Failed to do something exceptional';
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+        console.log(errorMessage);
+      }
+    }
+    // .111
+
+    // Assuming `responseBot` is the response from Botpress with status 200
+    async function processAndSendResponses(client, message, responseBot) {
+      for (const response of responseBot.data.responses) {
+        console.log(
+          'the type to respnseBot.data.responses.type is:',
+          response.type
+        );
+        console.log('the response is :', response);
+
+        // Handle text responses
+        if (response.type === 'text') {
+          console.log('Handling text response');
+          const messageText = response.text;
+          try {
+            await client.sendText(message.from, messageText);
+            console.log('Text message sent successfully');
+          } catch (error) {
+            console.error('Error when sending text: ', error);
+          }
+        }
+
+        // Handle single-choice (list) responses
+        else if (response.type === 'single-choice') {
+          console.log('Handling single-choice response');
+          const listChoices = response.choices;
+          const description = response.text;
+          console.log('The listChoices is:', listChoices);
+
+          const rows = listChoices.map((choice, index) => ({
+            rowId: index.toString(),
+            title: choice.title,
+            description: choice.description,
+          }));
+
+          try {
+            await client.sendListMessage(message.from, {
+              buttonText: 'Click here to show the list',
+              description: description,
+              sections: [
+                {
+                  title: 'Available operations',
+                  rows: rows,
+                },
+              ],
+            });
+            console.log('List message sent successfully');
+          } catch (error) {
+            console.error('Error when sending list: ', error);
+          }
+        } else if (response.type === 'file') {
+          await client
+            .sendFile(
+              'message.from',
+              '/home/abdo/Downloads/DoD.pdf',
+              'file_name',
+              'See my file in pdf'
+            )
+            .then((result) => {
+              console.log('Result: ', result); //return object success
+            })
+            .catch((erro) => {
+              console.error('Error when sending: ', erro); //return object error
+            });
+        }
+      }
+    }
 
     await client.onAnyMessage(async (message: any) => {
       message.session = client.session;
