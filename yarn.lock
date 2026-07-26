@@ -5600,12 +5600,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wppconnect-team/wppconnect@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "@wppconnect-team/wppconnect@npm:2.2.3"
+"@wppconnect-team/wppconnect@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "@wppconnect-team/wppconnect@npm:2.2.4"
   dependencies:
     "@img/sharp-win32-x64": "npm:^0.35.3"
-    "@wppconnect/wa-js": "npm:^4.4.1"
+    "@wppconnect/wa-js": "npm:^4.4.2"
     "@wppconnect/wa-version": "npm:^1.5.3941"
     atob: "npm:^2.1.2"
     axios: "npm:^1.18.1"
@@ -5640,7 +5640,7 @@ __metadata:
       optional: true
     fsevents:
       optional: true
-  checksum: 10c0/38b85f5d1e28cfd6bdff97c60b659a26f616f6f9710d34859d2b5ab93ca6b1a2c0f3f110d5622e04e1d760f27ea739ffeb6e7360d37706c441e71cbee4b23603
+  checksum: 10c0/a1f9f4947d2fbc7a54973e8502ec4d268875ce70bf849adfcb4128aeca3edc6e022ccb90dd1f5fd62d4d1701fc687746d92c3485a906f377f9047ee326f28a38
   languageName: node
   linkType: hard
 
@@ -5675,7 +5675,7 @@ __metadata:
     "@types/unzipper": "npm:^0.10.11"
     "@typescript-eslint/eslint-plugin": "npm:^7.18.0"
     "@typescript-eslint/parser": "npm:^8.57.2"
-    "@wppconnect-team/wppconnect": "npm:^2.2.3"
+    "@wppconnect-team/wppconnect": "npm:^2.2.4"
     archiver: "npm:^7.0.1"
     axios: "npm:^1.14.0"
     bcrypt: "npm:^6.0.0"
@@ -5733,10 +5733,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@wppconnect/wa-js@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "@wppconnect/wa-js@npm:4.4.1"
-  checksum: 10c0/8d11482296459c18a9a8b971c15ae33caafe4d3349d1186a9dd51f3d7c19d0c838dd892c15fc3ab7a576ee100f83fd3e2f4c6bdceb5a089e6ee7e1860ce92323
+"@wppconnect/wa-js@npm:^4.4.2":
+  version: 4.4.2
+  resolution: "@wppconnect/wa-js@npm:4.4.2"
+  checksum: 10c0/3952a07b74bd4a19c4eed32794873fabaff481348c931fd93ae0a9884cf2fe913344806e16df36cb81fe679fbf8ab6abb7aefb6cbbb49f154d67f7c932be3873
   languageName: node
   linkType: hard
 
