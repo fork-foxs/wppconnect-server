@@ -5600,13 +5600,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wppconnect-team/wppconnect@npm:^2.2.4":
-  version: 2.2.4
-  resolution: "@wppconnect-team/wppconnect@npm:2.2.4"
+"@wppconnect-team/wppconnect@npm:^2.2.6":
+  version: 2.2.6
+  resolution: "@wppconnect-team/wppconnect@npm:2.2.6"
   dependencies:
     "@img/sharp-win32-x64": "npm:^0.35.3"
-    "@wppconnect/wa-js": "npm:^4.4.2"
-    "@wppconnect/wa-version": "npm:^1.5.3941"
+    "@wppconnect/wa-js": "npm:^4.4.3"
+    "@wppconnect/wa-version": "npm:^1.5.4472"
     atob: "npm:^2.1.2"
     axios: "npm:^1.18.1"
     boxen: "npm:^5.1.2"
@@ -5640,7 +5640,7 @@ __metadata:
       optional: true
     fsevents:
       optional: true
-  checksum: 10c0/a1f9f4947d2fbc7a54973e8502ec4d268875ce70bf849adfcb4128aeca3edc6e022ccb90dd1f5fd62d4d1701fc687746d92c3485a906f377f9047ee326f28a38
+  checksum: 10c0/2890e8053f01f320850030523ce647315d766a923841b3affd5f4ae758c90e2e386451f16c4fe92a0c8b34505121615a6447cd68b2b24d4fa2940ba725860e81
   languageName: node
   linkType: hard
 
@@ -5675,7 +5675,7 @@ __metadata:
     "@types/unzipper": "npm:^0.10.11"
     "@typescript-eslint/eslint-plugin": "npm:^7.18.0"
     "@typescript-eslint/parser": "npm:^8.57.2"
-    "@wppconnect-team/wppconnect": "npm:^2.2.4"
+    "@wppconnect-team/wppconnect": "npm:^2.2.6"
     archiver: "npm:^7.0.1"
     axios: "npm:^1.14.0"
     bcrypt: "npm:^6.0.0"
@@ -5733,20 +5733,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@wppconnect/wa-js@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "@wppconnect/wa-js@npm:4.4.2"
-  checksum: 10c0/3952a07b74bd4a19c4eed32794873fabaff481348c931fd93ae0a9884cf2fe913344806e16df36cb81fe679fbf8ab6abb7aefb6cbbb49f154d67f7c932be3873
+"@wppconnect/wa-js@npm:^4.4.3":
+  version: 4.5.0
+  resolution: "@wppconnect/wa-js@npm:4.5.0"
+  checksum: 10c0/024e54250aadd1abd11e1dff4116766959592c78f8c9ea4cb9c7a80b09fd097378d7c5a1b8611624234696e6ff030180aa9e668829905066a8621c6361fefc7f
   languageName: node
   linkType: hard
 
-"@wppconnect/wa-version@npm:^1.5.3941":
-  version: 1.5.3947
-  resolution: "@wppconnect/wa-version@npm:1.5.3947"
+"@wppconnect/wa-version@npm:^1.5.4472":
+  version: 1.5.4486
+  resolution: "@wppconnect/wa-version@npm:1.5.4486"
   dependencies:
     node-fetch: "npm:^2.7.0"
-    semver: "npm:^7.7.4"
-  checksum: 10c0/64be6742204171b8b8c1490d6e522c0a4afcab319eee5b9a0840ee8a6ba4f822c100fb2c4b59031f003cc68d6a62128c0f5645b798138873b432aa67322f8ab5
+    semver: "npm:^7.8.5"
+  checksum: 10c0/53b94f1e43803b2bd5c58c8df096bb6a9527aa287cd4c2ef28ea4a3c9495854d083c955e8ad5233f28f6bff6367295995e2e872ce6b1ce9c30cb5a6339d8c6b9
   languageName: node
   linkType: hard
 
@@ -14391,6 +14391,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10c0/5215ad0234e2845d4ea5bb9d836d42b03499546ddafb12075566899fc617f68794bb6f146076b6881d755de17d6c6cc73372555879ec7dce2c2feee947866ad2
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.8.5":
+  version: 7.8.5
+  resolution: "semver@npm:7.8.5"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/b1f3127a5be8125a94f37188b361c212466c292c6910adce3ec106cff5dc211ccaedc4739c11bb70fda59d6fc1f040a9bca289f4e093451521a2372e5231fe0c
   languageName: node
   linkType: hard
 
